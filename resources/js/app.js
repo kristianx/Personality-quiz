@@ -6,7 +6,10 @@ import App from "./components/App.vue";
 import Welcome from "./pages/Welcome.vue";
 import Quiz from "./pages/Quiz.vue";
 
-const routes = [{ path: "/", component: Welcome }];
+const routes = [
+    { path: "/", component: Welcome },
+    { path: "/quiz", component: Quiz },
+];
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
