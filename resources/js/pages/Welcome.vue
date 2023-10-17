@@ -1,13 +1,22 @@
 <template>
     <div class="container">
+        <img src="https://images.unsplash.com/photo-1521220546621-cf34a1165c67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3552&q=80" alt="Personalities" class="header-image">
         <h1>Welcome to the personality test page!</h1>
         <p>Take a quick 5 question test and see what is your personality type.</p>
-        <a href="/quiz" class="btn btn-primary">Take the test</a>
+        <button @click="router().get('/quiz')" class="primary">Take the test</button>
     </div>
 </template>
 
 <script>
-export default {};
+import {router} from "@inertiajs/vue3";
+
+export default {
+    methods: {
+        router() {
+            return router
+        }
+    }
+};
 </script>
 
 <style lang="scss">
@@ -20,7 +29,7 @@ export default {};
 
 body {
     color: #fff;
-    background-color: #2e2e2e;
+    background-color: #212121;
 }
 
 .app {
@@ -37,6 +46,9 @@ body {
     display: inline-flex;
     justify-content: space-between;
 }
+.mr-20{
+    margin-right: 20px;
+}
 h1 {
     font-size: 2rem;
     margin-bottom: 2rem;
@@ -50,7 +62,6 @@ h2 {
 p {
     color: #8f8f8f;
     font-size: 1.5rem;
-    text-align: center;
 }
 hr.divider {
     border: none;
@@ -94,5 +105,25 @@ button {
 
 button:disabled {
     opacity: 0.5;
+}
+</style>
+
+<style lang="scss" scoped>
+.container{
+    text-align: center;
+}
+.header-image{
+    margin-top: 50px;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 25px;
+
+}
+h1{
+    margin: 25px 0 10px;
+}
+button{
+
 }
 </style>

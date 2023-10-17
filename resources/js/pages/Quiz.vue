@@ -92,25 +92,26 @@ const FinishQuiz = () => {
                     Previous
                 </button>
 
-                <button
-                    class="primary complete"
-                    @click="FinishQuiz"
-                    v-if="getCurrentQuestion.index == quiz.length - 1"
-                    :disabled="!everythingIsAnswered()"
-                >
-                    Finish
-                </button>
+
                 <button
                     class="primary"
                     @click="NextQuestion"
                     :disabled="getCurrentQuestion.selected == null"
-                    v-else
+                    v-if="getCurrentQuestion.index != quiz.length - 1"
                 >
                     {{
                         getCurrentQuestion.selected == null
                             ? "Select an option"
                             : "Next question"
                     }}
+                </button>
+                <button
+                    class="primary complete"
+                    @click="FinishQuiz"
+                    v-if="getCurrentQuestion.index == quiz.length - 1 || everythingIsAnswered()"
+                    :disabled="!everythingIsAnswered()"
+                >
+                    Finish
                 </button>
             </div>
         </section>

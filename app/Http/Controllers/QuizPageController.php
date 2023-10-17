@@ -14,7 +14,7 @@ class QuizPageController extends Controller
 {
     public function index(){
 
-        $quiz = QuestionResource::collection(Question::query()->with('answers')->get());
+        $quiz = QuestionResource::collection(Question::query()->with('answers')->take(5)->get());
 
         return Inertia::render('Quiz', [
             'quiz' => $quiz
