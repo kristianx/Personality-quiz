@@ -1,22 +1,14 @@
-import "./bootstrap";
-import { createApp } from "vue";
-import * as VueRouter from "vue-router";
+import { createApp, h } from "vue";
+import { createInertiaApp } from "@inertiajs/vue3";
 
-import App from "./components/App.vue";
-import Welcome from "./pages/Welcome.vue";
-import Quiz from "./pages/Quiz.vue";
-
-const routes = [
-    { path: "/", component: Welcome },
-    { path: "/quiz", component: Quiz },
-];
-
-const router = VueRouter.createRouter({
-    history: VueRouter.createWebHashHistory(),
-    routes,
+createInertiaApp({
+    resolve: (name) => {
+        const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
+        return pages[`./Pages/${name}.vue`];
+    },
+    setup({ el, App, props, plugin }) {
+        createApp({ render: () => h(App, props) })
+            .use(plugin)
+            .mount(el);
+    },
 });
-
-const app = createApp(App);
-app.use(router);
-
-app.mount("#app");

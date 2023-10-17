@@ -1,53 +1,25 @@
 <script setup>
+import { router } from "@inertiajs/vue3";
 import { ref, computed } from "vue";
 
-const quiz = ref({
-    quizName: "The Quiz",
-    questions: [
-        {
-            id: 0,
-            question: "What is Vue?",
-            options: {
-                0: "A framework",
-                1: "A library",
-                2: "A type of hat",
-            },
-            selected: null,
-        },
-        {
-            id: 1,
-            question: "What is Vuex used for?",
-            options: {
-                0: "Eating a delicious snack",
-                1: "Viewing things",
-                2: "State management",
-            },
-            selected: null,
-        },
-        {
-            id: 2,
-            question: "What is Vue Router?",
-            options: {
-                0: "An ice cream maker",
-                1: "A routing library for Vue",
-                2: "Burger sauce",
-            },
-            selected: null,
-        },
-    ],
+const props = defineProps({
+    quiz: {
+        type: Object,
+        required: true,
+    },
 });
 
 const quizCompleted = ref(false);
 const currentQuestion = ref(0);
 
 const getCurrentQuestion = computed(() => {
-    let question = quiz.value.questions[currentQuestion.value];
+    let question = props.quiz[currentQuestion.value];
     question.index = currentQuestion.value;
     return question;
 });
 
 const SetAnswer = (e) => {
-    quiz.value.questions[currentQuestion.value].selected = e.target.value;
+    props.quiz[currentQuestion.value].selected = e.target.value;
     e.target.value = null;
 };
 
@@ -59,50 +31,54 @@ const PreviousQuestion = () => {
 };
 
 const NextQuestion = () => {
-    if (currentQuestion.value < quiz.value.questions.length - 1) {
+    if (currentQuestion.value < props.quiz.length - 1) {
         currentQuestion.value++;
         return;
     }
-
     quizCompleted.value = true;
 };
 const everythingIsAnswered = () => {
     //return true if everything is answered
-    return !quiz.value.questions.some((question) => question.selected == null);
+    return !props.quiz.some((question) => question.selected == null);
 };
 const FinishQuiz = () => {
     if (everythingIsAnswered()) {
-        console.log(quiz.value.questions);
+        router.visit("/quiz", {
+            method: "post",
+            data: {
+                results: props.quiz,
+            },
+        });
     }
 };
 </script>
 
 <template>
     <main class="app">
-        <h1 class="quiz-name">{{ quiz.quizName }}</h1>
+        <h1 class="quiz-name">Personality Quiz</h1>
 
         <section class="quiz" v-if="!quizCompleted">
             <h1 class="question">{{ getCurrentQuestion.question }}</h1>
-            <div class="options">
+            <div class="answers">
                 <label
-                    v-for="(option, index) in getCurrentQuestion.options"
-                    :for="'option' + index"
-                    :class="`option ${
+                    v-for="answer in getCurrentQuestion.answers"
+                    :for="'answer' + answer.id"
+                    :class="`answer ${
                         getCurrentQuestion.selected != null &&
-                        index == getCurrentQuestion.selected
+                        answer.id == getCurrentQuestion.selected
                             ? 'selected'
                             : ''
                     }`"
                 >
                     <input
                         type="radio"
-                        :id="'option' + index"
+                        :id="'answer' + answer.id"
                         :name="getCurrentQuestion.index"
-                        :value="index"
+                        :value="answer.id"
                         v-model="getCurrentQuestion.selected"
                         @change="SetAnswer"
                     />
-                    <span>{{ option }}</span>
+                    <span>{{ answer.answer }}</span>
                 </label>
             </div>
             <hr class="divider" />
@@ -119,7 +95,7 @@ const FinishQuiz = () => {
                 <button
                     class="primary complete"
                     @click="FinishQuiz"
-                    v-if="getCurrentQuestion.index == quiz.questions.length - 1"
+                    v-if="getCurrentQuestion.index == quiz.length - 1"
                     :disabled="!everythingIsAnswered()"
                 >
                     Finish
@@ -127,7 +103,7 @@ const FinishQuiz = () => {
                 <button
                     class="primary"
                     @click="NextQuestion"
-                    :disabled="!getCurrentQuestion.selected"
+                    :disabled="getCurrentQuestion.selected == null"
                     v-else
                 >
                     {{
@@ -139,13 +115,10 @@ const FinishQuiz = () => {
             </div>
         </section>
         <div class="quiz-score">
-            <p>
-                {{ currentQuestion + 1 }}. out of
-                {{ quiz.questions.length }} questions
-            </p>
+            <p>{{ currentQuestion + 1 }}. out of {{ quiz.length }} questions</p>
             <div class="quiz-progress inline">
                 <div
-                    v-for="(question, index) in quiz.questions"
+                    v-for="(question, index) in quiz"
                     :key="index"
                     class="question-item"
                     :class="question.selected != null ? 'answered' : ''"
@@ -155,82 +128,7 @@ const FinishQuiz = () => {
     </main>
 </template>
 
-<style lang="scss">
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
-}
-
-body {
-    color: #fff;
-    background-color: #2e2e2e;
-}
-
-.app {
-    padding: 2rem;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-.width-100 {
-    width: 100%;
-}
-.inline {
-    display: inline-flex;
-    justify-content: space-between;
-}
-h1 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-}
-h2 {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-p {
-    color: #8f8f8f;
-    font-size: 1.5rem;
-    text-align: center;
-}
-hr.divider {
-    border: none;
-    height: 2px;
-    color: #bdbdbd;
-    background-color: #bdbdbd;
-    margin: 20px 0;
-}
-button {
-    border: none;
-    outline: none;
-    cursor: pointer;
-    appearance: none;
-    padding: 20px 35px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    &.primary {
-        color: #fff;
-        font-size: 18px;
-        background-color: #3a66d4;
-    }
-    &.secondary {
-        color: #3a66d4;
-        border: 2px solid #eee;
-        font-size: 18px;
-        background-color: transparent;
-    }
-    &.complete {
-        background-color: #3a9d44;
-    }
-}
-
-button:disabled {
-    opacity: 0.5;
-}
+<style lang="scss" scoped>
 
 .quiz {
     width: 100%;
@@ -248,9 +146,9 @@ button:disabled {
         color: #2e2e2e;
         padding-left: 30px;
     }
-    .options {
+    .answers {
         flex: 1;
-        .option {
+        .answer {
             display: block;
             cursor: pointer;
             color: #2e2e2e;
