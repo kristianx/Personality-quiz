@@ -1,22 +1,37 @@
+let isNotificationVisible;
 <template>
     <div class="container">
         <img src="https://images.unsplash.com/photo-1521220546621-cf34a1165c67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3552&q=80" alt="Personalities" class="header-image">
         <h1>Welcome to the personality test page!</h1>
         <p>Take a quick 5 question test and see what is your personality type.</p>
-        <button @click="router().get('/quiz')" class="primary">Take the test</button>
+        <button @click="router.visit('/quiz')" class="primary">Take the test</button>
+        <div v-if="errorExist && isNotificationVisible" class="error" >
+            {{ errors.error }}
+        </div>
     </div>
 </template>
 
-<script>
+<script setup>
 import {router} from "@inertiajs/vue3";
+import {computed, onMounted, ref} from "vue";
 
-export default {
-    methods: {
-        router() {
-            return router
-        }
+const props = defineProps({
+    errors:{
+        type: Object,
+        default: null
     }
-};
+});
+
+onMounted(() => {
+    setTimeout(() => {
+        isNotificationVisible.value = false
+    }, 3000)
+});
+
+let isNotificationVisible = ref(true);
+
+const errorExist = computed(() => Object.keys(props.errors).length !== 0);
+
 </script>
 
 <style lang="scss">
@@ -105,6 +120,16 @@ button {
 
 button:disabled {
     opacity: 0.5;
+}
+.error{
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    display: inline-block;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.05));
+    background-color:#E28888;
+    padding: 20px 30px;
+    border-radius: 25px;
 }
 </style>
 

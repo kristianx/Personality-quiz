@@ -17,9 +17,13 @@ class QuizPageController extends Controller
     public function index(){
 
         $quiz = QuestionResource::collection(Question::query()->with('answers')->inRandomOrder()->take(5)->get());
-
-        return Inertia::render('Quiz', [
-            'quiz' => $quiz
+        if($quiz->count() != 0){
+            return Inertia::render('Quiz', [
+                'quiz' => $quiz
+            ]);
+        }
+        return Inertia::render('Welcome', [
+            'errors' => ['error' => 'There are no questions in this quiz!']
         ]);
 
     }

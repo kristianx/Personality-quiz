@@ -5,7 +5,7 @@ import { ref, computed } from "vue";
 const props = defineProps({
     quiz: {
         type: Object,
-        required: true,
+        required: true
     },
 });
 
@@ -14,6 +14,7 @@ const currentQuestion = ref(0);
 
 const getCurrentQuestion = computed(() => {
     let question = props.quiz[currentQuestion.value];
+    console.log(props.quiz);
     question.index = currentQuestion.value;
     return question;
 });
