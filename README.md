@@ -4,17 +4,22 @@
 - Inertia JS
 - Vue JS
 - Pest for Unit Testing
+  
 
 ## Install the app
 
+- `cp .env.example .env`
 - `composer install`
+- `php artisan key:generate`
 - `touch database/database.sqlite`
 - `php artisan migrate --seed`
+  
 
 ## Running the app in development
 
 - `php artisan serve`
 - `npm install && npm run dev`
+  
 
 ## Unit testing
 
