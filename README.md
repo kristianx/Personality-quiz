@@ -31,12 +31,12 @@ To run the tests, type the following command into the terminal:
 Example response:
 ```
    PASS  Tests\Unit\EndpointTest
-  ✓ results are returned by the controller                                                                                               
+  ✓ results are returned by the controller  
 
    PASS  Tests\Unit\ResultTest
-  ✓ outcome can be introvert                                                                                                           
-  ✓ outcome can be extrovert                                                                                                         
-  ✓ outcome is tied                                                                                                                      
+  ✓ outcome can be introvert     
+  ✓ outcome can be extrovert    
+  ✓ outcome is tied   
 
   Tests:    4 passed (16 assertions)
   Duration: 0.20s
