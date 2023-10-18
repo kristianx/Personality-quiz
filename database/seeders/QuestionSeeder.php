@@ -32,6 +32,26 @@ class QuestionSeeder extends Seeder
                 'question' => 'During dinner parties at your home, you have a hard time with people who:',
                 'id' => 5
             ],
+            [
+                'question' => 'You crack a joke at work, but nobody seems to have noticed. You:',
+                'id' => 6
+            ],
+            [
+                'question' => 'This morning, your agenda seems to be free. You:',
+                'id' => 7
+            ],
+            [
+                'question' => 'During dinner, the discussion moves to a subject about which you know nothing at all. You:',
+                'id' => 8
+            ],
+            [
+                'question' => 'You’re out with a group of friends and there’s a person who’s quite shy and doesn’t talk much. You:',
+                'id' => 9
+            ],
+            [
+                'question' => 'At work, somebody asks for your help for the hundredth time. You:',
+                'id' => 10
+            ],
         ];
 
         foreach($questions as $index => $question) {
@@ -45,6 +65,6 @@ class QuestionSeeder extends Seeder
 
         return collect($questions);
 
-       
+
     }
 }

@@ -116,6 +116,107 @@ class AnswerSeeder extends Seeder
                 'id' => 5,
                 'outcome'    => Outcome::Extrovert,
             ],
+            [
+                'answer'     => 'Think it’s for the best — it was a lame joke anyway',
+                'id' => 6,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Wait to share it with your friends after work',
+                'id' => 6,
+                'outcome'    => Outcome::Extrovert,
+            ],
+            [
+                'answer'     => 'Try again a bit later with one of your colleagues',
+                'id' => 6,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Keep telling it until they pay attention',
+                'id' => 6,
+                'outcome'    => Outcome::Extrovert,
+            ],
+            [
+                'answer'     => 'Know that somebody will find a reason to come and bother you',
+                'id' => 7,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Heave a sigh of relief and look forward to a day without stress',
+                'id' => 7,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Question your colleagues about a project that’s been worrying you',
+                'id' => 7,
+                'outcome'    => Outcome::Extrovert,
+            ],
+            [
+                'answer'     => 'Pick up the phone and start filling up your agenda with meetings',
+                'id' => 7,
+                'outcome'    => Outcome::Extrovert,
+            ],
+            [
+                'answer'     => 'Don’t dare show that you don’t know anything about the subject',
+                'id' => 8,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Barely follow the discussion',
+                'id' => 8,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Ask lots of questions to learn more about it',
+                'id' => 8,
+                'outcome'    => Outcome::Extrovert,
+            ],
+            [
+                'answer'     => 'Change the subject of discussion',
+                'id' => 8,
+                'outcome'    => Outcome::Extrovert,
+            ],
+            [
+                'answer'     => 'Notice that they’re alone, but don’t go over to talk with them',
+                'id' => 9,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Go and have a chat with them',
+                'id' => 9,
+                'outcome'    => Outcome::Extrovert,
+            ],
+            [
+                'answer'     => 'Shoot some friendly smiles in their direction',
+                'id' => 9,
+                'outcome'    => Outcome::Extrovert,
+            ],
+            [
+                'answer'     => 'Hardly notice them at all',
+                'id' => 9,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Give them a hand, as usual',
+                'id' => 10,
+                'outcome'    => Outcome::Extrovert,
+            ],
+            [
+                'answer'     => 'Accept — you’re known for being helpful',
+                'id' => 10,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Ask them, please, to find somebody else for a change',
+                'id' => 10,
+                'outcome'    => Outcome::Introvert,
+            ],
+            [
+                'answer'     => 'Loudly make it known that you’re annoyed',
+                'id' => 10,
+                'outcome'    => Outcome::Extrovert,
+            ],
+
         ];
 
         $answers = collect($answers)->groupBy->id;

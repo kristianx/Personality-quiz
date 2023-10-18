@@ -6,7 +6,7 @@ use App\Models\Answer;
 
 class OutcomeProcessor
 {
-    public function __construct(private array $results)
+    public function __construct(private readonly array $results)
     {
     }
 
@@ -18,7 +18,8 @@ class OutcomeProcessor
         $answers = Answer::query()->whereIn('id', array_column($this->results, 'selected'))->get();
 
         foreach ($answers as $answer){
-            if($answer->outcome == 'extrovert'){
+
+            if($answer->outcome === Outcome::Extrovert){
                 $extrovert++;
             }else {
                 $introvert++;
